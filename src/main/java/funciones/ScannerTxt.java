@@ -5,15 +5,13 @@
  */
 package funciones;
 
-import JpaControllers.*;
 import dao.gestores.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Enumeration;
 import java.util.Scanner;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import logicaHash.*;
 import persistencia.*;
 
@@ -22,6 +20,7 @@ import persistencia.*;
  * @author tecio
  */
 
+@ApplicationScoped
 public class ScannerTxt { 
     private Vocabulario vocabulario = new Vocabulario();
     private final String todos = "D:\\Tomi\\Facultad\\4To\\DLC\\Motor de Busqueda\\DocumentosTP1-20200417T134605Z-001\\DocumentosTP1";

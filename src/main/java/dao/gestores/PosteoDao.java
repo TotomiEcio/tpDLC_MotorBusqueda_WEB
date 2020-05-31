@@ -23,7 +23,6 @@ public class PosteoDao extends DaoEclipseLink<Posteo_EC, PosteoPK>{
     }
     
     public List<Posteo_EC> findPosteoForTermino(Termino t, int r){
-        
         TypedQuery<Posteo_EC> query = entityManager.createNamedQuery("Posteo_EC.findByHashTerMTF", Posteo_EC.class);
         query.setParameter("hashTer", t.hashCode());
         List<Posteo_EC> posteo = query.setMaxResults(r).getResultList();

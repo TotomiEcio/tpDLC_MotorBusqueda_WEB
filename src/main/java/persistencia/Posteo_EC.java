@@ -13,7 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -22,7 +21,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 
 @Table(name = "Posteo")
-//@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Posteo_EC.findAll", query = "SELECT p FROM Posteo_EC p"),
     @NamedQuery(name = "Posteo_EC.findByHashTer", query = "SELECT p FROM Posteo_EC p WHERE p.posteoPK.hashTer = :hashTer"),

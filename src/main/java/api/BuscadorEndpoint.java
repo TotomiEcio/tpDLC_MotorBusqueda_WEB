@@ -43,6 +43,6 @@ public class BuscadorEndpoint {
     
     @GET
     public Response index(){
-        return Response.ok("Funciona la poronga esta").build();
+        return Response.ok().build();
     }
 }
