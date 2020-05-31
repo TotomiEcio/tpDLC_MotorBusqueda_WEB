@@ -20,16 +20,17 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author tecio
  */
 @Entity
+
 @Table(name = "Posteo")
-@XmlRootElement
+//@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Posteo.findAll", query = "SELECT p FROM Posteo_EC p"),
-    @NamedQuery(name = "Posteo.findByHashTer", query = "SELECT p FROM Posteo_EC p WHERE p.posteoPK.hashTer = :hashTer"),
-    @NamedQuery(name = "Posteo.findByHashTerMTF",
+    @NamedQuery(name = "Posteo_EC.findAll", query = "SELECT p FROM Posteo_EC p"),
+    @NamedQuery(name = "Posteo_EC.findByHashTer", query = "SELECT p FROM Posteo_EC p WHERE p.posteoPK.hashTer = :hashTer"),
+    @NamedQuery(name = "Posteo_EC.findByHashTerMTF",
             query = "SELECT DOC.nombre, TER.nombre, POST.cant FROM Posteo_EC post, Documentos_EC doc, Terminos_EC ter WHERE DOC.hashDocumentos=POST.posteoPK.hashDoc AND TER.hashTermino=POST.posteoPK.hashTer"
                     + " AND POST.posteoPK.hashTer = :hashTer ORDER BY POST.cant DESC"),
-    @NamedQuery(name = "Posteo.findByHashDoc", query = "SELECT p FROM Posteo_EC p WHERE p.posteoPK.hashDoc = :hashDoc"),
-    @NamedQuery(name = "Posteo.findByCant", query = "SELECT p FROM Posteo_EC p WHERE p.cant = :cant")})
+    @NamedQuery(name = "Posteo_EC.findByHashDoc", query = "SELECT p FROM Posteo_EC p WHERE p.posteoPK.hashDoc = :hashDoc"),
+    @NamedQuery(name = "Posteo_EC.findByCant", query = "SELECT p FROM Posteo_EC p WHERE p.cant = :cant")})
 public class Posteo_EC implements Serializable, DalEntity {
 
     private static final long serialVersionUID = 1L;

@@ -14,8 +14,8 @@ import persistencia.Terminos_EC;
  */
 public class TerminosDao extends DaoEclipseLink<Terminos_EC, Integer>{
     
-    public TerminosDao(Class<Terminos_EC> entityClass) {
-        super(entityClass);
+    public TerminosDao() {
+        super(Terminos_EC.class);
     }
     
 }

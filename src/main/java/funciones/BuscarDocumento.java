@@ -3,11 +3,9 @@ package funciones;
 
 import java.io.File;
 import java.util.*;
-import javax.persistence.*;
-import javax.persistence.Persistence;
 import logicaHash.*;
-import JpaControllers.*;
 import dao.gestores.*;
+import java.text.DecimalFormat;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import persistencia.*;
@@ -19,14 +17,15 @@ import persistencia.*;
 
 @ApplicationScoped
 public class BuscarDocumento {
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("doc_PU");
-    private TerminosJpaController terJpa;
-    private PosteoJpaController postJpa;
-    private DocumentosJpaController docJpa;
+
+//    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("doc_PU");
+//    private TerminosJpaController terJpa;
+//    private PosteoJpaController postJpa;
+//    private DocumentosJpaController docJpa;
     
-    @Inject DocumentosDao docDao;
-    @Inject PosteoDao postDao;
-    @Inject TerminosDao terDao;
+    @Inject private DocumentosDao docDao;
+    @Inject private PosteoDao postDao;
+    @Inject private TerminosDao terDao;
     
     private Vocabulario voc;
     private SortedMap<Integer, Documento> listDocs;
@@ -37,8 +36,8 @@ public class BuscarDocumento {
     public Object[] buscar(String str, int r){
         voc = new Vocabulario();
         listDocs = new TreeMap<>();
-        docJpa = new DocumentosJpaController(emf);
-        voc.setCantTotalDocs(docJpa.getDocumentosCount());
+
+        voc.setCantTotalDocs(docDao.findAll().size());
         buscarTextoIngresado(str, r);
         
         Object[] ordenado = listDocs.values().toArray();
@@ -48,9 +47,8 @@ public class BuscarDocumento {
     
     // Carga al vocabulario el termino a buscar
     private void cargarAVocabulario(Termino t) {
-        terJpa = new TerminosJpaController(emf);
         try {
-            Terminos_EC tEC = terJpa.findTerminos(t.hashCode());
+            Terminos_EC tEC = terDao.retrieve(t.hashCode());
             Termino ter = new Termino(tEC);
             voc.put(ter);
         } catch (Exception e) {
@@ -75,9 +73,8 @@ public class BuscarDocumento {
         // Me fijo si es o no una stopWord
         boolean stopWord = validarStopWord(t);
         if(!stopWord){
-            postJpa = new PosteoJpaController(emf);
             try {
-                List<Posteo_EC> posteo = postJpa.findPosteoForTermino(t, r);
+                List<Posteo_EC> posteo = postDao.findPosteoForTermino(t, r);
                 cargarListaDocumentos(posteo);
             } catch (Exception e) {
                 System.out.println("Error al buscar la lista de posteo para el termino: " + t.getNom() + " \nEl error es: " + e.getMessage() );
@@ -87,7 +84,6 @@ public class BuscarDocumento {
     }
     
     // Valida si un termino es stopword o no
-    
     // Defino el porcentaje maximo de documentos en los que puede aparecer un termino para que no sea STOPWORD
     private final double porcentaje = 0.5;
     
@@ -120,6 +116,7 @@ public class BuscarDocumento {
             try {
                 apariciones = ((Termino)voc.getVocabulario().get(ter.hashCode())).getCantDocs();
             } catch (Exception e) { System.out.println("Error al buscar las apariciones de un termino. " + e.getMessage());}
+            
             double peso = frec * Math.log(voc.getCantTotalDocs()/apariciones);
             d.setIdr(peso);
             insertarLD(d);

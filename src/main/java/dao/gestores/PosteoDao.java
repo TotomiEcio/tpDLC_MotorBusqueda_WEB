@@ -7,7 +7,6 @@ package dao.gestores;
 
 import dao.commons.DaoEclipseLink;
 import java.util.List;
-import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import logicaHash.Termino;
 import persistencia.PosteoPK;
@@ -19,13 +18,13 @@ import persistencia.Posteo_EC;
  */
 public class PosteoDao extends DaoEclipseLink<Posteo_EC, PosteoPK>{
     
-    public PosteoDao(Class<Posteo_EC> entityClass) {
-        super(entityClass);
+    public PosteoDao() {
+        super(Posteo_EC.class);
     }
     
     public List<Posteo_EC> findPosteoForTermino(Termino t, int r){
         
-        TypedQuery<Posteo_EC> query = entityManager.createNamedQuery("Posteo.findByHashTerMTF", Posteo_EC.class);
+        TypedQuery<Posteo_EC> query = entityManager.createNamedQuery("Posteo_EC.findByHashTerMTF", Posteo_EC.class);
         query.setParameter("hashTer", t.hashCode());
         List<Posteo_EC> posteo = query.setMaxResults(r).getResultList();
         return posteo;

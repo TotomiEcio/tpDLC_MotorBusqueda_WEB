@@ -6,8 +6,6 @@
 package funciones;
 
 import JpaControllers.*;
-import dao.commons.DalEntity;
-import dao.commons.DaoEclipseLink;
 import dao.gestores.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -31,17 +29,15 @@ public class ScannerTxt {
     private final String prueba2 = "D:\\Tomi\\Facultad\\4To\\DLC\\Motor de Busqueda\\DocumentosPrueba2";
     private final String carpetaIndexar = "D:\\Tomi\\Facultad\\4To\\DLC\\Motor de Busqueda\\Carpeta a Indexar";
     
+//    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("doc_PU");
+//    private DocumentosJpaController docJpa;
+//    private TerminosJpaController terJpa;
+//    private PosteoJpaController postJpa;
     
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("doc_PU");
-    private DocumentosJpaController docJpa;
-    private TerminosJpaController terJpa;
-    private PosteoJpaController postJpa;
+    @Inject private DocumentosDao docDao;
+    @Inject private PosteoDao postDao;
+    @Inject private TerminosDao terDao;
     
-    @Inject DocumentosDao docDao;
-    @Inject PosteoDao postDao;
-    @Inject TerminosDao terDao;
-    
-
     public ScannerTxt() {
     }
 
@@ -56,9 +52,8 @@ public class ScannerTxt {
             Documento d = new Documento(arch.getName());
             Documentos_EC doc = new Documentos_EC(d.hashCode(), d.getNombre());
             
-            docJpa = new DocumentosJpaController(emf);
             // Se fija si ya existe el documento dentro de la BDD
-            if(docJpa.findDocumentos(doc.getHashDocumentos()) == null){
+            if(docDao.retrieve(doc.getHashDocumentos()) == null){
                 try {
                     docDao.create(doc);
                     System.out.println("Docuemto cargado con exito");
@@ -97,10 +92,7 @@ public class ScannerTxt {
 
     private void cargarDatosABDD() {
         Enumeration e = vocabulario.getVocabulario().elements();
-        
-        terJpa = new TerminosJpaController(emf);
-        postJpa = new PosteoJpaController(emf);
-        
+
         while(e.hasMoreElements()){
             Termino pal = (Termino) e.nextElement();
             Terminos_EC ter = new Terminos_EC(pal.hashCode(), pal.getNom(), pal.getMTF(), pal.getPosteo().size());
@@ -108,7 +100,7 @@ public class ScannerTxt {
             // Se fija si ya existe el termino en la base de datos
             // Lo crea/edita dependiendo del caso
             
-            Terminos_EC terBD = terJpa.findTerminos(ter.getHashTermino());
+            Terminos_EC terBD = terDao.retrieve(ter.getHashTermino());
             if(terBD == null){
                 try {
                     terDao.create(terBD);

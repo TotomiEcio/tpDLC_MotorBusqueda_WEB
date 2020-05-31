@@ -5,14 +5,12 @@
  */
 package api;
 
-import JpaControllers.DocumentosJpaController;
 import funciones.BuscarDocumento;
 import funciones.ScannerTxt;
-import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-import persistencia.*;
+
 
 /**
  *
@@ -21,9 +19,9 @@ import persistencia.*;
 
 @Path("/")
 public class BuscadorEndpoint {
-    @Inject public BuscarDocumento bd;
-    @Inject public ScannerTxt sc;
-
+    @Inject BuscarDocumento bd;
+    @Inject ScannerTxt sc;
+    
     @GET
     @Path("/buscar/{cadena}")
     @Produces("application/json")

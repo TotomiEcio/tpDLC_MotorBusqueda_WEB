@@ -16,20 +16,20 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author tecio
  */
 @Entity
+
 @Table(name = "Documentos")
 //@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Documentos.findAll", query = "SELECT d FROM Documentos_EC d"),
-    @NamedQuery(name = "Documentos.findByHashDocumentos", query = "SELECT d FROM Documentos_EC d WHERE d.hashDocumentos = :hashDocumentos"),
-    @NamedQuery(name = "Documentos.findByNombre", query = "SELECT d FROM Documentos_EC d WHERE d.nombre = :nombre"),
-    @NamedQuery(name = "Documentos.cantDocumentos", query = "SELECT count(*) FROM Documentos_EC")})
+    @NamedQuery(name = "Documentos_EC.findAll", query = "SELECT d FROM Documentos_EC d"),
+    @NamedQuery(name = "Documentos_EC.findByHashDocumentos", query = "SELECT d FROM Documentos_EC d WHERE d.hashDocumentos = :hashDocumentos"),
+    @NamedQuery(name = "Documentos_EC.findByNombre", query = "SELECT d FROM Documentos_EC d WHERE d.nombre = :nombre"),
+    @NamedQuery(name = "Documentos_EC.cantDocumentos", query = "SELECT COUNT(d.hashDocumentos) FROM Documentos_EC d")})
 public class Documentos_EC implements Serializable, DalEntity {
 
     private static final long serialVersionUID = 1L;

@@ -16,7 +16,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -24,13 +23,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "Terminos")
-@XmlRootElement
+//@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Terminos.findAll", query = "SELECT t FROM Terminos_EC t"),
-    @NamedQuery(name = "Terminos.findByHashTermino", query = "SELECT t FROM Terminos_EC t WHERE t.hashTermino = :hashTermino"),
-    @NamedQuery(name = "Terminos.findByNombre", query = "SELECT t FROM Terminos_EC t WHERE t.nombre = :nombre"),
-    @NamedQuery(name = "Terminos.findByMaxTermFrec", query = "SELECT t FROM Terminos_EC t WHERE t.maxTermFrec = :maxTermFrec"),
-    @NamedQuery(name = "Terminos.findByCantDocumentos", query = "SELECT t FROM Terminos_EC t WHERE t.cantDocumentos = :cantDocumentos")})
+    @NamedQuery(name = "Terminos_EC.findAll", query = "SELECT t FROM Terminos_EC t"),
+    @NamedQuery(name = "Terminos_EC.findByHashTermino", query = "SELECT t FROM Terminos_EC t WHERE t.hashTermino = :hashTermino"),
+    @NamedQuery(name = "Terminos_EC.findByNombre", query = "SELECT t FROM Terminos_EC t WHERE t.nombre = :nombre"),
+    @NamedQuery(name = "Terminos_EC.findByMaxTermFrec", query = "SELECT t FROM Terminos_EC t WHERE t.maxTermFrec = :maxTermFrec"),
+    @NamedQuery(name = "Terminos_EC.findByCantDocumentos", query = "SELECT t FROM Terminos_EC t WHERE t.cantDocumentos = :cantDocumentos")})
 public class Terminos_EC implements Serializable, DalEntity {
 
     private static final long serialVersionUID = 1L;
