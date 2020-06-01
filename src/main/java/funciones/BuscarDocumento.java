@@ -42,6 +42,7 @@ public class BuscarDocumento {
         
         Object[] ordenado = listDocs.values().toArray();
         Arrays.sort(ordenado);
+        ordenado = Arrays.copyOf(ordenado, r);
         return ordenado;
     }
     

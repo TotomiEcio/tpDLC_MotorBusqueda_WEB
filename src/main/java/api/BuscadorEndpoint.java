@@ -23,10 +23,10 @@ public class BuscadorEndpoint {
     @Inject ScannerTxt sc;
     
     @GET
-    @Path("/buscar/{cadena}")
+    @Path("/buscar/{cadena}/{cant}")
     @Produces("application/json")
-    public Response buscar(@PathParam("cadena") String str){
-        Object[] l = bd.buscar(str, 5);
+    public Response buscar(@PathParam("cadena") String str, @PathParam("cant") int docs){
+        Object[] l = bd.buscar(str, docs);
         return Response.ok(l).build();
     }
     
