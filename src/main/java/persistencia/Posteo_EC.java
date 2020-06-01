@@ -19,7 +19,6 @@ import javax.persistence.Table;
  * @author tecio
  */
 @Entity
-
 @Table(name = "Posteo")
 @NamedQueries({
     @NamedQuery(name = "Posteo_EC.findAll", query = "SELECT p FROM Posteo_EC p"),

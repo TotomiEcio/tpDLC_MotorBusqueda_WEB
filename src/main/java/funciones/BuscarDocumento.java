@@ -5,7 +5,6 @@ import java.io.File;
 import java.util.*;
 import logicaHash.*;
 import dao.gestores.*;
-import java.text.DecimalFormat;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import persistencia.*;
@@ -18,17 +17,12 @@ import persistencia.*;
 @ApplicationScoped
 public class BuscarDocumento {
 
-//    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("doc_PU");
-//    private TerminosJpaController terJpa;
-//    private PosteoJpaController postJpa;
-//    private DocumentosJpaController docJpa;
-    
     @Inject private DocumentosDao docDao;
     @Inject private PosteoDao postDao;
     @Inject private TerminosDao terDao;
     
     private Vocabulario voc;
-    private SortedMap<Integer, Documento> listDocs;
+    private TreeMap<Integer, Documento> listDocs;
 
     public BuscarDocumento() {   
     }
@@ -142,17 +136,6 @@ public class BuscarDocumento {
         }
     }
 
-    // Devuelve el resultado en un string
-    private String imprimirResultado(Object[] resultado) {
-        String str = "";
-        for(Object o : resultado)
-        {
-            str += o.toString();
-        }
-        return str;
-    }
-    
-    
     // Variable para el algoritmo de busqueda
     private static boolean encontro = false;
     
@@ -165,6 +148,7 @@ public class BuscarDocumento {
         return str;
     }
     
+    // Busco recursivamente en las carpetas el path del documento buscado
     private String buscarPath(String path0, String path1, String nomDoc){
         String prevPath = path0;
         String finalPath = path1;

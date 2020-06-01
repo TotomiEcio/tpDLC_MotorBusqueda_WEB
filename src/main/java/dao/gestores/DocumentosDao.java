@@ -6,7 +6,6 @@
 package dao.gestores;
 
 import dao.commons.DaoEclipseLink;
-import javax.persistence.TypedQuery;
 import persistencia.Documentos_EC;
 
 /**
@@ -19,10 +18,4 @@ public class DocumentosDao extends DaoEclipseLink<Documentos_EC, Integer>{
     public DocumentosDao() {
         super(Documentos_EC.class);
     }
-    
-    public int cantDocumentos(){
-        TypedQuery query = entityManager.createNamedQuery("Documentos.cantDocumentos", Documentos_EC.class);
-        return query.getFirstResult();
-    }
-
 }

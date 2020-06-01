@@ -22,9 +22,7 @@ import javax.validation.constraints.Size;
  * @author tecio
  */
 @Entity
-
 @Table(name = "Documentos")
-//@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Documentos_EC.findAll", query = "SELECT d FROM Documentos_EC d"),
     @NamedQuery(name = "Documentos_EC.findByHashDocumentos", query = "SELECT d FROM Documentos_EC d WHERE d.hashDocumentos = :hashDocumentos"),

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package funciones;
 
 import dao.gestores.*;
@@ -22,16 +18,8 @@ import persistencia.*;
 
 @ApplicationScoped
 public class ScannerTxt { 
-    private Vocabulario vocabulario = new Vocabulario();
-    private final String todos = "D:\\Tomi\\Facultad\\4To\\DLC\\Motor de Busqueda\\DocumentosTP1-20200417T134605Z-001\\DocumentosTP1";
-    private final String prueba = "D:\\Tomi\\Facultad\\4To\\DLC\\Motor de Busqueda\\DocumentosPrueba";
-    private final String prueba2 = "D:\\Tomi\\Facultad\\4To\\DLC\\Motor de Busqueda\\DocumentosPrueba2";
+    private final Vocabulario vocabulario = new Vocabulario();
     private final String carpetaIndexar = "D:\\Tomi\\Facultad\\4To\\DLC\\Motor de Busqueda\\Carpeta a Indexar";
-    
-//    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("doc_PU");
-//    private DocumentosJpaController docJpa;
-//    private TerminosJpaController terJpa;
-//    private PosteoJpaController postJpa;
     
     @Inject private DocumentosDao docDao;
     @Inject private PosteoDao postDao;
@@ -126,7 +114,6 @@ public class ScannerTxt {
                 Documentos_EC doc = new Documentos_EC(d.hashCode(), d.getNombre());
 
                 Posteo_EC post = new Posteo_EC(pal.hashCode(), doc.hashCode(), d.getCant());
-                System.out.println();
                 try {
                     postDao.create(post);
                 } catch (Exception ex) {
